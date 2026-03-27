@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consultoría & Transformación – Rocio Zelada</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #0d0d0d;
+    --cream:      #f5f0e8;
+    --gold:       #c9a84c;
+    --gold-light: #e8c96a;
+    --teal:       #1a5c5a;
+    --teal-light: #2a8a87;
+    --off-white:  #faf8f4;
+    --rust:       #b05a2f;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.07) 79px, rgba(201,168,76,0.07) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.07) 79px, rgba(201,168,76,0.07) 80px);
+    pointer-events: none;
+  }
+
+  /* Diagonal teal accent */
+  .hero::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: linear-gradient(135deg, transparent 55%, rgba(176,90,47,0.12) 100%);
+    pointer-events: none;
+  }
+
+  .hero-left {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px 80px 80px;
+  }
+
+  .eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 32px;
+  }
+  .eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 1px; background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 5vw, 76px);
+    font-weight: 300; line-height: 1.05;
+    color: var(--cream); margin-bottom: 12px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 2vw, 24px); font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    margin-bottom: 44px; line-height: 1.5;
+  }
+
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 52px; }
+  .tag {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 2px;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--gold); color: var(--ink);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 16px 32px; border-radius: 2px;
+    text-decoration: none; width: fit-content;
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: var(--gold-light); }
+  .hero-cta svg { width: 16px; height: 16px; }
+
+  .hero-right {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    padding: 80px 60px;
+  }
+
+  .hero-card {
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 44px 38px; width: 100%; max-width: 380px;
+    background: rgba(255,255,255,0.03);
+  }
+  .hero-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .stat-list { list-style: none; }
+  .stat-list li {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 16px 0; border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .stat-list li:last-child { border-bottom: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px; font-weight: 300; color: var(--gold);
+    line-height: 1; min-width: 54px;
+  }
+  .stat-desc { font-size: 13px; color: rgba(245,240,232,0.65); line-height: 1.5; padding-top: 3px; }
+  .stat-desc strong { display: block; color: var(--cream); font-weight: 500; margin-bottom: 2px; font-size: 14px; }
+
+  /* ── GOLD BAND ── */
+  .gold-band {
+    background: var(--gold); padding: 28px 80px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .gold-band p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-style: italic; color: var(--ink);
+    flex: 1; line-height: 1.4;
+  }
+  .gold-band-badge {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(13,13,13,0.55); white-space: nowrap;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 90px 80px; }
+
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--teal);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--teal); opacity: 0.3;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 4vw, 58px); font-weight: 300;
+    line-height: 1.1; margin-bottom: 48px;
+  }
+  .section-title em { font-style: italic; color: var(--teal); }
+
+  /* ── PROPUESTA DE VALOR ── */
+  .propuesta { background: var(--off-white); }
+
+  .propuesta-grid {
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+
+  .propuesta-text {
+    font-size: 16px; color: #333; line-height: 1.85;
+    border-left: 2px solid var(--gold); padding-left: 28px;
+  }
+  .propuesta-text p + p { margin-top: 18px; }
+
+  .propuesta-pillars { display: flex; flex-direction: column; gap: 20px; }
+
+  .pillar-card {
+    border: 1px solid rgba(0,0,0,0.08); padding: 28px 24px;
+    background: white; position: relative; overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .pillar-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+  .pillar-card::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .pillar-card:nth-child(1)::before { background: var(--gold); }
+  .pillar-card:nth-child(2)::before { background: var(--teal); }
+  .pillar-card:nth-child(3)::before { background: var(--rust); }
+
+  .pillar-badge {
+    font-size: 9px; font-weight: 500; letter-spacing: 0.25em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 2px;
+    display: inline-block; margin-bottom: 12px;
+  }
+  .pillar-card:nth-child(1) .pillar-badge { background: rgba(201,168,76,0.1); color: #8a6d1a; }
+  .pillar-card:nth-child(2) .pillar-badge { background: rgba(26,92,90,0.08); color: var(--teal); }
+  .pillar-card:nth-child(3) .pillar-badge { background: rgba(176,90,47,0.08); color: var(--rust); }
+
+  .pillar-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600; margin-bottom: 8px;
+  }
+  .pillar-card p { font-size: 13px; color: #555; line-height: 1.7; }
+
+  /* ── ALCANCE ── */
+  .alcance { background: var(--ink); color: var(--cream); }
+  .alcance .section-title { color: var(--cream); }
+  .alcance .section-title em { color: var(--gold); }
+  .alcance .section-label { color: var(--gold); }
+  .alcance .section-label::after { background: var(--gold); opacity: 0.4; }
+
+  .alcance-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: rgba(201,168,76,0.12);
+    margin-bottom: 48px;
+  }
+
+  .alcance-card {
+    background: rgba(255,255,255,0.03); padding: 40px 32px;
+    position: relative; overflow: hidden;
+    transition: background 0.25s;
+  }
+  .alcance-card:hover { background: rgba(255,255,255,0.06); }
+
+  .alcance-icon {
+    font-size: 28px; margin-bottom: 18px; display: block; line-height: 1;
+  }
+
+  .alcance-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px; font-weight: 300; color: var(--gold);
+    opacity: 0.06; line-height: 1;
+    position: absolute; top: 8px; right: 16px;
+  }
+
+  .alcance-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; line-height: 1.25;
+    margin-bottom: 14px; color: var(--cream);
+  }
+
+  .alcance-card p {
+    font-size: 13px; color: rgba(245,240,232,0.55);
+    line-height: 1.75;
+  }
+
+  .alcance-card-tag {
+    display: inline-block; margin-top: 18px;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 2px;
+    border: 1px solid rgba(201,168,76,0.25); color: rgba(201,168,76,0.7);
+  }
+
+  /* ── CÓMO TRABAJAMOS ── */
+  .proceso { background: var(--cream); }
+
+  .proceso-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative; gap: 0;
+  }
+
+  /* Connecting line */
+  .proceso-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 1px; background: var(--gold); opacity: 0.25;
+    z-index: 0;
+  }
+
+  .step {
+    padding: 0 24px 40px; text-align: center;
+    position: relative; z-index: 1;
+  }
+
+  .step-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    background: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; color: var(--gold);
+  }
+
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 600; margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .step p { font-size: 12px; color: #555; line-height: 1.7; }
+
+  /* ── DIFERENCIAL ── */
+  .diferencial { background: var(--off-white); }
+
+  .dif-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+  .dif-card {
+    padding: 32px 24px; border: 1px solid rgba(0,0,0,0.07);
+    background: white; text-align: center;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .dif-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.07); transform: translateY(-2px); }
+
+  .dif-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+  .dif-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 600; margin-bottom: 10px;
+  }
+  .dif-card p { font-size: 12px; color: #666; line-height: 1.75; }
+
+  /* ── PARA QUIÉN ── */
+  .para-quien { background: var(--teal); color: white; }
+  .para-quien .section-label { color: rgba(255,255,255,0.45); }
+  .para-quien .section-label::after { background: white; opacity: 0.12; }
+  .para-quien .section-title { color: white; }
+  .para-quien .section-title em { color: var(--gold-light); }
+
+  .pq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.06); }
+
+  .pq-card {
+    background: rgba(0,0,0,0.15); padding: 36px 28px;
+    transition: background 0.2s;
+  }
+  .pq-card:hover { background: rgba(0,0,0,0.25); }
+
+  .pq-icon { font-size: 24px; margin-bottom: 14px; display: block; }
+
+  .pq-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600;
+    color: white; margin-bottom: 10px; line-height: 1.25;
+  }
+  .pq-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+  .pq-quote {
+    margin-top: 40px; padding: 28px 36px;
+    background: rgba(0,0,0,0.2);
+    border-left: 2px solid rgba(201,168,76,0.4);
+  }
+  .pq-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-style: italic; font-weight: 300;
+    color: rgba(255,255,255,0.85); line-height: 1.5;
+  }
+  .pq-quote span {
+    display: block; margin-top: 10px;
+    font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+  }
+
+  /* ── VISUAL SEPARATOR ── */
+  .visual-separator {
+    display: block; line-height: 0; overflow: hidden;
+    background: var(--ink);
+  }
+  .visual-separator svg { width: 100%; height: 220px; display: block; }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    background: var(--ink);
+    background-image: repeating-linear-gradient(
+      45deg, transparent, transparent 20px,
+      rgba(201,168,76,0.025) 20px, rgba(201,168,76,0.025) 21px
+    );
+    padding: 100px 80px; text-align: center;
+  }
+  .cta-footer .section-label {
+    justify-content: center; color: var(--gold);
+  }
+  .cta-footer .section-label::after,
+  .cta-footer .section-label::before {
+    content: ''; width: 40px; height: 1px;
+    background: var(--gold); opacity: 0.5;
+  }
+  .cta-footer h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 68px); font-weight: 300;
+    color: var(--cream); line-height: 1.1; margin-bottom: 20px;
+  }
+  .cta-footer h2 em { font-style: italic; color: var(--gold); }
+  .cta-footer p {
+    font-size: 15px; color: rgba(245,240,232,0.45);
+    margin-bottom: 44px; max-width: 460px;
+    margin-left: auto; margin-right: auto; line-height: 1.65;
+  }
+  .cta-footer-note {
+    margin-top: 28px; font-size: 12px;
+    color: rgba(245,240,232,0.25); letter-spacing: 0.1em;
+  }
+
+  /* ── FOOTER BAR ── */
+  .footer-bar {
+    background: #050505; padding: 24px 80px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--gold); }
+  .footer-tagline { font-size: 11px; color: rgba(245,240,232,0.28); letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.8s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.5s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.6s; }
+  .hero-right { animation: fadeUp 0.8s ease 0.5s both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    section { padding: 70px 40px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 80px 40px 40px; }
+    .hero-right { padding: 40px 40px 80px; }
+    .propuesta-grid { grid-template-columns: 1fr; gap: 40px; }
+    .alcance-grid { grid-template-columns: 1fr 1fr; }
+    .proceso-steps { grid-template-columns: 1fr 1fr; }
+    .proceso-steps::before { display: none; }
+    .dif-grid { grid-template-columns: 1fr 1fr; }
+    .pq-grid { grid-template-columns: 1fr 1fr; }
+    .gold-band { padding: 28px 40px; }
+    .footer-bar { padding: 24px 40px; }
+  }
+
+  @media (max-width: 640px) {
+    section { padding: 60px 24px; }
+    .hero-left { padding: 60px 24px 32px; }
+    .hero-right { padding: 32px 24px 60px; }
+    .alcance-grid { grid-template-columns: 1fr; background: transparent; gap: 16px; }
+    .proceso-steps { grid-template-columns: 1fr; }
+    .dif-grid { grid-template-columns: 1fr; }
+    .pq-grid { grid-template-columns: 1fr; background: transparent; gap: 12px; }
+    .gold-band { flex-direction: column; padding: 24px; gap: 12px; }
+    .footer-bar { flex-direction: column; gap: 8px; text-align: center; padding: 20px 24px; }
+    .cta-footer { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">Servicios · 2026</div>
+    <h1>Consultoría &<br><em>Transformación</em></h1>
+    <p class="hero-subtitle">Alineación estratégica, adopción tecnológica<br>y gestión del cambio desde su dimensión humana</p>
+    <div class="hero-tags">
+      <span class="tag">Estrategia</span>
+      <span class="tag">Portafolio</span>
+      <span class="tag">Tecnología</span>
+      <span class="tag">Transformación</span>
+    </div>
+    <a href="mailto:soy@rociozelada.com" class="hero-cta">
+      Agendar Consulta
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <p class="hero-card-title">El servicio en síntesis</p>
+      <ul class="stat-list">
+        <li>
+          <span class="stat-num">3</span>
+          <div class="stat-desc"><strong>Pilares de Trabajo</strong>Estrategia, Tecnología y Cambio Organizacional</div>
+        </li>
+        <li>
+          <span class="stat-num">∞</span>
+          <div class="stat-desc"><strong>Alcance Personalizado</strong>Cada proyecto se diseña a la medida del contexto</div>
+        </li>
+        <li>
+          <span class="stat-num">1</span>
+          <div class="stat-desc"><strong>Enfoque Integrador</strong>Dimensión técnica y humana siempre juntas</div>
+        </li>
+        <li>
+          <span class="stat-num">360</span>
+          <div class="stat-desc"><strong>Visión de Conjunto</strong>Desde la estrategia hasta la ejecución en el terreno</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GOLD BAND ══ -->
+<div class="gold-band">
+  <p>"Guío a las organizaciones para alinear sus portafolios de iniciativas con la estrategia y acompaño el cambio asegurando que se integre exitosamente desde su dimensión humana."</p>
+  <span class="gold-band-badge">Rocio Zelada · rociozelada.com</span>
+</div>
+
+<!-- ══ PROPUESTA DE VALOR ══ -->
+<section class="propuesta" id="propuesta">
+  <div class="section-label">Propuesta de Valor</div>
+  <h2 class="section-title">¿Qué hacemos<br><em>juntos?</em></h2>
+
+  <div class="propuesta-grid">
+    <div>
+      <p class="propuesta-text">
+        La transformación organizacional no ocurre solo por adoptar nuevas herramientas o rediseñar procesos. Ocurre cuando la estrategia, la tecnología y las personas avanzan en la misma dirección.
+        <p style="margin-top: 18px;">Trabajo junto a las organizaciones para identificar brechas entre su situación actual y su visión de futuro, diseñar rutas de acción concretas y acompañar la ejecución hasta que el cambio se consolida en la cultura y en los resultados.</p>
+        <p style="margin-top: 18px;">El enfoque es siempre práctico, adaptado al contexto real de cada organización y con atención especial a la dimensión humana: los equipos, las resistencias y las capacidades que hacen posible —o imposible— cualquier transformación.</p>
+      </p>
+    </div>
+
+    <div class="propuesta-pillars">
+      <div class="pillar-card">
+        <span class="pillar-badge">Pilar 1 · Estrategia</span>
+        <h3>Alineación de Portafolio e Iniciativas</h3>
+        <p>Conecto los proyectos e iniciativas de la organización con sus objetivos estratégicos, asegurando que cada esfuerzo contribuya a la dirección correcta y que los recursos se prioricen con criterio.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-badge">Pilar 2 · Tecnología</span>
+        <h3>Adopción de Tecnologías de Alto Impacto</h3>
+        <p>Asesoro en la selección, evaluación e implementación de tecnologías que generan valor real para el negocio, desde inteligencia artificial hasta plataformas de automatización y gestión.</p>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-badge">Pilar 3 · Cambio</span>
+        <h3>Gestión de la Transformación Organizacional</h3>
+        <p>Acompaño los procesos de cambio cuidando tanto la dimensión técnica como la humana: equipos preparados, resistencias gestionadas y aprendizajes integrados en la organización.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ALCANCE ══ -->
+<section class="alcance" id="alcance">
+  <div class="section-label">Áreas de Intervención</div>
+  <h2 class="section-title">Alcance del<br><em>Servicio</em></h2>
+
+  <div class="alcance-grid">
+    <div class="alcance-card">
+      <span class="alcance-num">01</span>
+      <span class="alcance-icon">◈</span>
+      <h3>Diagnóstico Estratégico y de Madurez</h3>
+      <p>Evaluación del estado actual de la organización en términos de estrategia, portafolio, procesos y capacidades, identificando brechas y oportunidades de mejora con criterio práctico.</p>
+      <span class="alcance-card-tag">Punto de Partida</span>
+    </div>
+    <div class="alcance-card">
+      <span class="alcance-num">02</span>
+      <span class="alcance-icon">◎</span>
+      <h3>Alineación de Portafolio con la Estrategia</h3>
+      <p>Revisión y estructuración del portafolio de proyectos e iniciativas para asegurar coherencia con los objetivos organizacionales, priorización efectiva y uso óptimo de los recursos disponibles.</p>
+      <span class="alcance-card-tag">Estrategia</span>
+    </div>
+    <div class="alcance-card">
+      <span class="alcance-num">03</span>
+      <span class="alcance-icon">▶</span>
+      <h3>Hoja de Ruta de Transformación Digital</h3>
+      <p>Diseño de roadmaps tecnológicos y digitales adaptados al ritmo y capacidad de la organización, con fases claras, indicadores de avance y criterios de adopción sostenible.</p>
+      <span class="alcance-card-tag">Tecnología</span>
+    </div>
+    <div class="alcance-card">
+      <span class="alcance-num">04</span>
+      <span class="alcance-icon">✦</span>
+      <h3>Asesoría en Adopción Tecnológica</h3>
+      <p>Acompañamiento en la evaluación, selección e implementación de tecnologías de alto impacto —incluyendo inteligencia artificial y automatización— asegurando que la adopción genere valor real y medible.</p>
+      <span class="alcance-card-tag">Tecnología · IA</span>
+    </div>
+    <div class="alcance-card">
+      <span class="alcance-num">05</span>
+      <span class="alcance-icon">❋</span>
+      <h3>Gestión y Acompañamiento del Cambio</h3>
+      <p>Diseño e implementación de estrategias de gestión del cambio que abordan la resistencia, preparan a los equipos y aseguran que las transformaciones se integren de manera duradera en la cultura organizacional.</p>
+      <span class="alcance-card-tag">Cambio · Personas</span>
+    </div>
+    <div class="alcance-card">
+      <span class="alcance-num">06</span>
+      <span class="alcance-icon">⬡</span>
+      <h3>Fortalecimiento de Capacidades Internas</h3>
+      <p>Desarrollo de las competencias, estructuras y prácticas que la organización necesita para sostener la transformación de forma autónoma una vez concluido el acompañamiento externo.</p>
+      <span class="alcance-card-tag">Sostenibilidad</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESO ══ -->
+<section class="proceso" id="proceso">
+  <div class="section-label">Forma de Trabajo</div>
+  <h2 class="section-title">Cómo <em>trabajamos</em></h2>
+
+  <div class="proceso-steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <h3>Escucha y Diagnóstico</h3>
+      <p>Comprendemos el contexto, los objetivos y los desafíos reales de la organización antes de proponer cualquier solución. El diagnóstico es siempre el primer paso.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <h3>Diseño de la Ruta</h3>
+      <p>Co-creamos una hoja de ruta adaptada a la realidad de la organización, con fases, prioridades y resultados esperados claros y medibles.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <h3>Acompañamiento en Ejecución</h3>
+      <p>Estamos presentes durante la implementación, ajustando el plan cuando el contexto lo requiere y asegurando que los equipos tengan el soporte necesario.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <h3>Consolidación y Autonomía</h3>
+      <p>El objetivo final es que la organización pueda continuar por sí misma. Cerramos asegurando capacidades instaladas y aprendizajes integrados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIFERENCIAL ══ -->
+<section class="diferencial">
+  <div class="section-label">Por qué es diferente</div>
+  <h2 class="section-title">Nuestro <em>Diferencial</em></h2>
+
+  <div class="dif-grid">
+    <div class="dif-card">
+      <span class="dif-icon">🎯</span>
+      <h3>Orientación a Resultados</h3>
+      <p>Cada intervención está diseñada para generar impacto medible y concreto, no solo documentos o diagnósticos. Lo que importa es el cambio real.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🤝</span>
+      <h3>Enfoque Humano del Cambio</h3>
+      <p>Las transformaciones exitosas cuidan a las personas. Trabajamos la resistencia, la comunicación y la cultura con la misma atención que los procesos y la tecnología.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">🔗</span>
+      <h3>Visión Integrada</h3>
+      <p>Conectamos estrategia, tecnología y operación en un único enfoque coherente, evitando los silos que suelen hacer fracasar las transformaciones.</p>
+    </div>
+    <div class="dif-card">
+      <span class="dif-icon">⚙️</span>
+      <h3>Adaptación al Contexto</h3>
+      <p>No existen recetas universales. Cada organización tiene su propia realidad y cada intervención se diseña a su medida, sin fórmulas genéricas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARA QUIÉN ══ -->
+<section class="para-quien">
+  <div class="section-label">Audiencia</div>
+  <h2 class="section-title">¿Para <em>quién</em><br>es este servicio?</h2>
+
+  <div class="pq-grid">
+    <div class="pq-card">
+      <span class="pq-icon">🏢</span>
+      <h3>Organizaciones en Proceso de Transformación</h3>
+      <p>Empresas que están atravesando cambios estructurales, tecnológicos o culturales y necesitan acompañamiento experto para que la transformación se consolide.</p>
+    </div>
+    <div class="pq-card">
+      <span class="pq-icon">📊</span>
+      <h3>Equipos con Portafolios Complejos</h3>
+      <p>Áreas o direcciones que gestionan múltiples iniciativas simultáneas y requieren alinear su portafolio con la estrategia para maximizar el impacto y optimizar recursos.</p>
+    </div>
+    <div class="pq-card">
+      <span class="pq-icon">💡</span>
+      <h3>Líderes ante Decisiones Tecnológicas</h3>
+      <p>Directivos y equipos que enfrentan decisiones de adopción tecnológica —incluyendo inteligencia artificial y automatización— y buscan una perspectiva estratégica e independiente.</p>
+    </div>
+  </div>
+
+  <div class="pq-quote">
+    <p>"El cambio más difícil no es tecnológico ni estratégico — es humano. Por eso acompañamos la transformación desde adentro."</p>
+    <span>Rocio Zelada · rociozelada.com</span>
+  </div>
+</section>
+
+<!-- ══ VISUAL SEPARATOR ══ -->
+<div class="visual-separator">
+  <svg viewBox="0 0 1440 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0d0d0d"/>
+        <stop offset="45%" style="stop-color:#1a1a0a"/>
+        <stop offset="100%" style="stop-color:#0d0d0d"/>
+      </linearGradient>
+      <radialGradient id="rg1" cx="25%" cy="50%" r="38%">
+        <stop offset="0%" style="stop-color:#c9a84c;stop-opacity:0.14"/>
+        <stop offset="100%" style="stop-color:#c9a84c;stop-opacity:0"/>
+      </radialGradient>
+      <radialGradient id="rg2" cx="78%" cy="50%" r="32%">
+        <stop offset="0%" style="stop-color:#b05a2f;stop-opacity:0.14"/>
+        <stop offset="100%" style="stop-color:#b05a2f;stop-opacity:0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1440" height="220" fill="url(#sg)"/>
+    <rect width="1440" height="220" fill="url(#rg1)"/>
+    <rect width="1440" height="220" fill="url(#rg2)"/>
+    <line x1="0" y1="55" x2="1440" y2="55" stroke="#c9a84c" stroke-opacity="0.05" stroke-width="1"/>
+    <line x1="0" y1="110" x2="1440" y2="110" stroke="#c9a84c" stroke-opacity="0.05" stroke-width="1"/>
+    <line x1="0" y1="165" x2="1440" y2="165" stroke="#c9a84c" stroke-opacity="0.05" stroke-width="1"/>
+    <circle cx="180" cy="110" r="90" fill="none" stroke="#c9a84c" stroke-opacity="0.1" stroke-width="1"/>
+    <circle cx="180" cy="110" r="55" fill="none" stroke="#c9a84c" stroke-opacity="0.07" stroke-width="1"/>
+    <circle cx="180" cy="110" r="22" fill="none" stroke="#c9a84c" stroke-opacity="0.12" stroke-width="1"/>
+    <circle cx="180" cy="110" r="5" fill="#c9a84c" fill-opacity="0.35"/>
+    <line x1="350" y1="0" x2="620" y2="220" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <line x1="440" y1="0" x2="710" y2="220" stroke="#c9a84c" stroke-opacity="0.04" stroke-width="1"/>
+    <text x="720" y="102" text-anchor="middle" font-family="Georgia,serif" font-size="11" letter-spacing="7" fill="#c9a84c" fill-opacity="0.4">CONSULTORÍA &amp; TRANSFORMACIÓN</text>
+    <text x="720" y="132" text-anchor="middle" font-family="Georgia,serif" font-size="32" letter-spacing="2" fill="#f5f0e8" fill-opacity="0.06" font-weight="300">Estrategia · Tecnología · Cambio</text>
+    <line x1="560" y1="110" x2="880" y2="110" stroke="#c9a84c" stroke-opacity="0.22" stroke-width="0.5"/>
+    <circle cx="560" cy="110" r="3" fill="#c9a84c" fill-opacity="0.35"/>
+    <circle cx="880" cy="110" r="3" fill="#c9a84c" fill-opacity="0.35"/>
+    <circle cx="720" cy="110" r="4" fill="#c9a84c" fill-opacity="0.55"/>
+    <circle cx="1260" cy="110" r="90" fill="none" stroke="#b05a2f" stroke-opacity="0.1" stroke-width="1"/>
+    <circle cx="1260" cy="110" r="55" fill="none" stroke="#b05a2f" stroke-opacity="0.07" stroke-width="1"/>
+    <circle cx="1260" cy="110" r="22" fill="none" stroke="#b05a2f" stroke-opacity="0.12" stroke-width="1"/>
+    <circle cx="1260" cy="110" r="5" fill="#b05a2f" fill-opacity="0.35"/>
+  </svg>
+</div>
+
+<!-- ══ CTA FOOTER ══ -->
+<section class="cta-footer">
+  <div class="section-label">¿Lista para Empezar?</div>
+  <h2>Transformemos tu<br>organización <em>juntos</em></h2>
+  <p>Agendemos una conversación para entender tu contexto y explorar cómo podemos acompañar tu proceso de transformación.</p>
+  <a href="mailto:soy@rociozelada.com" class="hero-cta" style="margin: 0 auto;">
+    Agendar Consulta
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+  <p class="cta-footer-note">soy@rociozelada.com &nbsp;·&nbsp; rociozelada.com &nbsp;·&nbsp; 2026</p>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer-bar">
+  <span class="footer-brand">Rocio Zelada</span>
+  <span class="footer-tagline">Innovación y Tecnología · rociozelada.com</span>
+</footer>
+
+</body>
+</html>
